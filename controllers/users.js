@@ -26,11 +26,10 @@ const getMessage = (verificationLink, user) => ({
 })
 
 userRouter.post('/register', async (request, response) => {
-    const { name, username, email, password } = request.body;
+    const { username, email, password } = request.body;
     const saltRounds = 10
     try {
-        console.log(request)
-
+ 
         const existingUser = await User.findOne({ email });
         if (existingUser) return response.status(400).json({ message: 'User already exists with this email id, try logging in' });
 
@@ -42,7 +41,6 @@ userRouter.post('/register', async (request, response) => {
         const passwordHash = await bcrypt.hash(password, saltRounds)
 
         const userToAdd = new User({
-            name,
             username,
             email,
             passwordHash: passwordHash,
@@ -51,7 +49,7 @@ userRouter.post('/register', async (request, response) => {
 
         const token = jwt.sign({ email: userToAdd.email, id: userToAdd._id }, process.env.SECRET, { expiresIn: 60 * 60 })
 
-        const verificationLink = `${request.protocol}://${request.get('host')}/users/verify?token=${token}`;
+        const verificationLink = `${request.protocol}://${request.get('host')}/api/users/verify?token=${token}`;
 
         // await transporter.verify((error, success) => {
         //     if (error) {
@@ -65,7 +63,7 @@ userRouter.post('/register', async (request, response) => {
 
         await userToAdd.save()
 
-        response.status(200).json({ message: 'Registration successful! Please check your email for verification.' });
+        response.json({ status:'success', message: 'User created successfully, please verify your email' });
     } catch (error) {
         response.status(500).json({ message: 'Server error', error: error.message });
     }
@@ -76,6 +74,7 @@ userRouter.get('/verify', async (req, res) => {
     const { token } = req.query;
     try {
         // Verify the token
+        console.log('Token:',token);
         const decoded = jwt.verify(token, process.env.SECRET);
         const user = await User.findById(decoded.id);
 
@@ -86,7 +85,7 @@ userRouter.get('/verify', async (req, res) => {
         user.isVerified = true;
         await user.save();
 
-        response.redirect(`${process.env.FRONTEND_URL}/verification-success`);
+        res.redirect(`${process.env.FRONTEND_URL}/verification-success`);
     } catch (error) {
         res.status(400).json({ message: 'Invalid or expired token', error: error.message });
     }

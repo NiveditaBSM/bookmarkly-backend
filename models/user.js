@@ -1,15 +1,10 @@
 const mongoose = require('mongoose')
 
 const userSchema = new mongoose.Schema({
-    blogs: [{
+    bookmarks: [{
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Blog'
+        ref: 'Bookmark'
     }],
-    name: String,
-    name: {
-        type: String,
-        required: [true, 'is required'],
-    },
     username: {
         type: String,
         minLength: [3, 'is expected to have at least 3 characters'],
@@ -23,7 +18,10 @@ const userSchema = new mongoose.Schema({
         type: String,
         required: [true, 'is required']
     },
-    isVerified: { type: Boolean, default: false },
+    isVerified: { 
+        type: Boolean, 
+        default: false 
+    },
 }, { timestamps: true })
 
 userSchema.set('toJSON', {

@@ -1,0 +1,22 @@
+###
+POST http://localhost:3002/api/users/register
+Content-Type: application/json
+
+{
+    "name":"Nivedita",
+    "username": "ivin",
+    "email": "niveditamagdum2015@gmail.com",
+    "password": "nivedita"
+}
+
+###
+GET http://localhost:3002/users/verify?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pdmVkaXRhbWFnZHVtMjAxNUBnbWFpbC5jb20iLCJpZCI6IjY3NzNhNmViMTg3OTE0YjkwZTJiY2U1NyIsImlhdCI6MTczNTYzMjYxOSwiZXhwIjoxNzM1NjM2MjE5fQ.RyL8ttXavgCWZjevNjiASUwARiQCjEehXXGKYsf-oa8 
+
+###
+POST http://localhost:3002/api/users/login
+Content-Type: application/json
+
+{
+    "email": "niveditamagdum2015@gmail.com", 
+    "password": "nivedita"
+}

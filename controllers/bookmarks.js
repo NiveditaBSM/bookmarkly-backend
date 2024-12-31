@@ -1,17 +1,17 @@
-const blogRouter = require('express').Router()
-const Blog = require('../models/blog')
+const bookmarkRouter = require('express').Router()
+const Bookmark = require('../models/bookmark')
 const User = require('../models/user')
 const logger = require('../utils/logger')
 const jwt = require('jsonwebtoken')
 const middleware = require('../utils/middleware')
 
 
-blogRouter.get('/', async (request, response) => {
+bookmarkRouter.get('/', async (request, response) => {
     const blogs = await Blog.find({}).populate('user', { username: 1, name: 1 })
     response.json(blogs)
 })
 
-blogRouter.post('/', middleware.extractUser, async (request, response) => {
+bookmarkRouter.post('/', middleware.extractUser, async (request, response) => {
     const body = request.body
 
     const user = request.user
@@ -32,7 +32,7 @@ blogRouter.post('/', middleware.extractUser, async (request, response) => {
     response.status(201).json(savedBlog)
 })
 
-blogRouter.delete('/:id', middleware.extractUser, async (request, response) => {
+bookmarkRouter.delete('/:id', middleware.extractUser, async (request, response) => {
     const blogId = request.params.id
 
     const user = request.user
@@ -57,7 +57,7 @@ blogRouter.delete('/:id', middleware.extractUser, async (request, response) => {
     response.status(204).end()
 })
 
-blogRouter.put('/:id', async (request, response, next) => {
+bookmarkRouter.put('/:id', async (request, response, next) => {
     const id = request.params.id
     const { title, author, url, likes } = request.body
 
@@ -68,4 +68,4 @@ blogRouter.put('/:id', async (request, response, next) => {
         ).catch(error => next(error))
 })
 
-module.exports = blogRouter
+module.exports = bookmarkRouter
