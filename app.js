@@ -10,11 +10,11 @@ const logger = require('./utils/logger')
 const config = require('./utils/config')
 
 
-mongoose.connect(config.MONGODB_URI).then(result =>
-    logger.info('connected to mongoDB')
-).catch(error =>
-    logger.error('error connecting to mongoDB', error.message)
-)
+// mongoose.connect(config.MONGODB_URI).then(result =>
+//     logger.info('connected to mongoDB')
+// ).catch(error =>
+//     logger.error('error connecting to mongoDB', error.message)
+// )
 
 mongoose.set('strictQuery', false)
 
@@ -26,6 +26,9 @@ if (process.env.NODE_ENV !== 'test') {
     app.use(middleware.morgan(':status :res[content-length] - :response-time ms'))
 }
 
+app.get("/", (req, res) => {
+    res.send("Hello from Bookmarkly backend!");
+});
 app.use('/api/bookmarks', bookmarkRouter)
 app.use('/api/users', userRouter)
 

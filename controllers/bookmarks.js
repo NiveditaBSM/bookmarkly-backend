@@ -4,9 +4,11 @@ const User = require('../models/user')
 const logger = require('../utils/logger')
 const jwt = require('jsonwebtoken')
 const middleware = require('../utils/middleware')
+const connectDB = require('../services/connectDB')
 
 
 bookmarkRouter.get('/', middleware.extractUser, async (request, response) => {
+    await connectDB();
     const user = request.user
     const bookmarks = await Bookmark.find({ user: user._id })
     console.log(bookmarks)
@@ -14,6 +16,7 @@ bookmarkRouter.get('/', middleware.extractUser, async (request, response) => {
 })
 
 bookmarkRouter.post('/', middleware.extractUser, async (request, response) => {
+    await connectDB();
     const body = request.body
 
     const user = request.user
@@ -36,6 +39,7 @@ bookmarkRouter.post('/', middleware.extractUser, async (request, response) => {
 })
 
 bookmarkRouter.delete('/:id', middleware.extractUser, async (request, response) => {
+    await connectDB();
     const bookmarkId = request.params.id
 
     const user = request.user
@@ -63,6 +67,7 @@ bookmarkRouter.delete('/:id', middleware.extractUser, async (request, response) 
 
 //This router is not yet updated to use the middleware.extractUser function
 bookmarkRouter.put('/:id', async (request, response, next) => {
+    await connectDB();
     const id = request.params.id
     const { title, author, url, likes } = request.body
 

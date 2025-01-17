@@ -3,9 +3,11 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { sendVerificationEmail } = require('../services/emailService');
+const connectDB = require('../services/connectDB')
 
 
 userRouter.post('/register', async (request, response) => {
+    await connectDB();
     const { username, email, password } = request.body;
     const saltRounds = 10
     try {
@@ -45,6 +47,7 @@ userRouter.post('/register', async (request, response) => {
 
 
 userRouter.get('/verify', async (req, res) => {
+    await connectDB();
     const { token } = req.query;
     try {
         // Verify the token
@@ -66,6 +69,7 @@ userRouter.get('/verify', async (req, res) => {
 })
 
 userRouter.post('/login', async (request, response) => {
+    await connectDB();
     console.log('Request Body:', request.body);
     const { email, password } = request.body
 
@@ -87,6 +91,7 @@ userRouter.post('/login', async (request, response) => {
 })
 
 userRouter.get('/', async (request, response) => {
+    await connectDB();
     const users = await User.find({}).populate('bookmarks', { url: 1, title: 1, author: 1 })
 
     response.json(users)
