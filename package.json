@@ -4,8 +4,8 @@
   "description": "backend to save/bookmark blogs",
   "main": "index.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start": "cross-env NODE_ENV=production node /api/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon /api/server.js",
     "test": "cross-env NODE_ENV=test node --test",
     "build:frontend": "rm -rf dist && cd ../bloglist-frontend && npm run build && cp -r dist ../bloglist-fullstack",
     "deploy:current": "git add . && git commit -m 'built for deploying' && git push",
