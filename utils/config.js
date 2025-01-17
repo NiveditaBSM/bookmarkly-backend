@@ -9,7 +9,10 @@ const PORT = process.env.PORT
 const EMAIL = process.env.EMAIL
 const EMAIL_PASS = process.env.EMAIL_PASS
 
+const FRONTEND_URL = process.env.FRONTEND_URL
+const SECRET = process.env.SECRET
+
 module.exports = {
-    MONGODB_URI, PORT, EMAIL, EMAIL_PASS
+    MONGODB_URI, PORT, EMAIL, EMAIL_PASS, FRONTEND_URL, SECRET
 }
 

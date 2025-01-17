@@ -3,6 +3,7 @@ const User = require('../models/user')
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcryptjs')
 const { sendVerificationEmail } = require('../services/emailService');
+const config = require('../utils/config')
 const connectDB = require('../services/connectDB')
 
 
@@ -31,7 +32,7 @@ userRouter.post('/register', async (request, response) => {
 
         await userToAdd.save()
 
-        const token = jwt.sign({ email: userToAdd.email, id: userToAdd._id }, process.env.SECRET, { expiresIn: '24h' })
+        const token = jwt.sign({ email: userToAdd.email, id: userToAdd._id }, config.SECRET, { expiresIn: '24h' })
 
         const verificationLink = `${request.protocol}://${request.get('host')}/api/users/verify?token=${token}`;
 
@@ -52,7 +53,7 @@ userRouter.get('/verify', async (req, res) => {
     try {
         // Verify the token
         console.log('Token:', token);
-        const decoded = jwt.verify(token, process.env.SECRET);
+        const decoded = jwt.verify(token, config.SECRET);
         const user = await User.findById(decoded.id);
 
         if (!user) return res.status(400).json({ message: 'Invalid token' });
@@ -62,7 +63,7 @@ userRouter.get('/verify', async (req, res) => {
         user.isVerified = true;
         await user.save();
 
-        res.redirect(`${process.env.FRONTEND_URL}/verification-success`);
+        res.redirect(`${config.FRONTEND_URL}/verification-success`);
     } catch (error) {
         res.status(400).json({ message: 'Invalid or expired token', error: error.message });
     }
@@ -85,7 +86,7 @@ userRouter.post('/login', async (request, response) => {
         id: user._id
     }
 
-    const token = jwt.sign(userForToken, process.env.SECRET, { expiresIn: '24h' })
+    const token = jwt.sign(userForToken, config.SECRET, { expiresIn: '24h' })
 
     response.json({ token, username: user.username, name: user.name })
 })
