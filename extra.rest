@@ -20,3 +20,34 @@ Content-Type: application/json
     "email": "niveditamagdum2015@gmail.com", 
     "password": "nivedita"
 }
+
+###
+POST http://localhost:3002/api/bookmarks/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pdmVkaXRhbWFnZHVtMjAxNUBnbWFpbC5jb20iLCJpZCI6IjY3NzU0MmNhMWFmYjkwMWMzMGNiMDVjNCIsImlhdCI6MTczNTc4OTc5OCwiZXhwIjoxNzM1ODc2MTk4fQ.bad36gnHP5DjwL7ox3iO7Z_0GMXFfkgDIrQbEm1nybU
+
+{
+    "title": "React, Node.js and Full Stack",
+    "author": "Nivedita",
+    "url": "https://www.niveditabsm.in",
+    "summary": "This is a story of how Bookmarkly is being created",
+    "tags": ["React", "Node.js", "Full Stack", "Bookmarkly"]
+}
+
+
+###
+POST http://localhost:3002/api/bookmarks/
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pdmVkaXRhbWFnZHVtMjAxNUBnbWFpbC5jb20iLCJpZCI6IjY3NzU0MmNhMWFmYjkwMWMzMGNiMDVjNCIsImlhdCI6MTczNTc4OTc5OCwiZXhwIjoxNzM1ODc2MTk4fQ.bad36gnHP5DjwL7ox3iO7Z_0GMXFfkgDIrQbEm1nybU
+
+{
+    "title": "Software Architecture Guide",
+    "author": "Martin Fowler",
+    "url": "https://martinfowler.com/architecture/",
+    "summary": "This is a story about software architecture.",
+    "tags": ["architecture", "", "Full Stack", "Bookmarkly"]
+}
+
+###
+GET http://localhost:3002/api/bookmarks/
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Im5pdmVkaXRhbWFnZHVtMjAxNUBnbWFpbC5jb20iLCJpZCI6IjY3NzU0MmNhMWFmYjkwMWMzMGNiMDVjNCIsImlhdCI6MTczNTc4OTc5OCwiZXhwIjoxNzM1ODc2MTk4fQ.bad36gnHP5DjwL7ox3iO7Z_0GMXFfkgDIrQbEm1nybU

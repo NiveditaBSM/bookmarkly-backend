@@ -13,14 +13,15 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'is required'],
+        unique: true
     },
     passwordHash: {
         type: String,
         required: [true, 'is required']
     },
-    isVerified: { 
-        type: Boolean, 
-        default: false 
+    isVerified: {
+        type: Boolean,
+        default: false
     },
 }, { timestamps: true })
 
